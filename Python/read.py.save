@@ -15,16 +15,16 @@ try:
     #command = 'sudo tcpdump -i eth0 -n -B ' + buffersize + ' -w ' + filepath +' -C ' + filesize
     #os.system(command)
 
-    #command = 'sudo tcpdump -i eth0 -C 100 -w test'
-    process = subprocess.Popen(['tcpdump','-i','eth0','-C','50','-w','/home/pi/velodyne/test.pcap'], stdout=subprocess.PIPE)
-    print('Starting process ' + str(process.pid))
+    command = 'sudo tcpdump -i eth0 -C 100 -w test.pcap'
+    process = subprocess.Popen(['sudo','tcpdump','-i','eth0','-C','100','-w','test.pcap'], stdout=subprocess.PIPE)
 
-    time.sleep(10)
+    time.sleep(10) # pause before ending program
 
-    print('Attempting to kill tcpdump process, please type ps -A to check process')
 
-    closecommand = 'sudo kill ' + str(process.pid)
-    os.system(closecommand)
+    process.send_signal(subprocess.signal.SIGTERM)
+
+    #closecommand = 'sudo kill ' + str(process.pid)
+    #os.system(closecommand)
 
 except KeyboardInterrupt:
     print('Recording stopped.')
