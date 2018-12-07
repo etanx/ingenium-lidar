@@ -1,53 +1,68 @@
+"""
+This script uses tcpdump to capture VLP-32c data over Ethernet connection.
+PCAP files generated can be playback in 3D with VeloView sotware.
 
-# or this method using tcdump to capture packets over ethernet
+A project of Ingenium (Wheaton College, IL).
+Created by Ellie Tan, 20 Nov 2018.
+"""
+
+# import needed packages
+import sys
 import os
 import time
 import subprocess
+import datetime
 
-buffersize = '524288'
-filesize = '2048'
-filepath = '/home/pi/velodyne/' + 'test.pcap'
+# convert command line inputs to variables
+if len(sys.argv) < 2:
+    print('Command format: python {} <CaptureDuration(seconds)>'.format(sys.argv[0]))
+    duration = 10 # default capture time for testing
+    print('No duration specified, switching to default '+ str(duration)+ ' seconds.')
 
-print('\nInitiating tcpdump capture to ' + filepath)
+# settings for recording data
+buffersize = '524288' # not used for now
+filesize = '100' # MB, max size 2048
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d")
+filepath = '/home/pi/' + timestamp + ' test.pcap'
+
+# set ethernet IP address to anything but sensor's IP address
+ethernetIP = '192.168.1.222'
+command = 'sudo ifconfig eth0 ' + ethernetIP + ' netmask 255.255.255.0'
+os.system(command)
+print('\nEthernet IP set to ' + ethernetIP)
+
+# begin data capture
+print('Initiating tcpdump capture to ' + filepath)
+print('Target filesize ' + filesize + ' MB')
 print('Press Ctrl-C to quit.')
 
 try:
+    #this can also work, but harder to terminate tcpdump
     #command = 'sudo tcpdump -i eth0 -n -B ' + buffersize + ' -w ' + filepath +' -C ' + filesize
     #os.system(command)
 
-    #command = 'sudo tcpdump -i eth0 -C 100 -w test'
-    process = subprocess.Popen(['tcpdump','-i','eth0','-C','50','-w','/home/pi/velodyne/test.pcap'], stdout=subprocess.PIPE)
-    print('Starting process ' + str(process.pid))
+    # start subprocess to run tcpdump
+    process = subprocess.Popen(['tcpdump','-i','eth0','-C',filesize,'-w',filepath], stdout=subprocess.PIPE)
+    print('Running process ' + str(process.pid) +' to capture data...')
+    
+    # pause to capture data
+    time.sleep(duration)
 
-    time.sleep(10)
-
-    print('Attempting to kill tcpdump process, please type ps -A to check process')
-
+    print('Ending tcpdump process, please type ps -A to double check.')
+    
+    # terminate the tcpdump process in the background
     closecommand = 'sudo kill ' + str(process.pid)
     os.system(closecommand)
 
-except KeyboardInterrupt:
-    print('Recording stopped.')
+except:
+    print('Error occured: Make sure tcdump is installed and check code.')
 
 
-
-###########################################################
-"""
-# Another method which has not been tested due to pyshark install errors
-import pyshark
+print('Done.')
 
 
-#capture = pyshark.RemoteCapture('192.168.1.101','eth0')
-capture = pyshark.LiveCapture(interface='eth0')
-capture.sniff(timeout=50)
-capture
-
-# not sure what this section is for
-#<LiveCapture (5 packets)>
-#capture[3]
-#<UDP/HTTP Packet>
-
-for packet in capture.sniff_continuously(packet_count=5):
-    print('Just arrived:', packet)
-
-"""
+# NEXT STEPS:
+# find best settings for buffer, filesize, use of -w loop
+# Include push-button to stop and activate?
+# Include LED blinking status with GPIO?
+# next part of the script - to visualize?
