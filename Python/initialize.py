@@ -1,5 +1,5 @@
 """
-This script uses PycURL to access the web interface
+CThis script uses PycURL to access the web interface
 and resets Velodyne VLP-32c LiDAR over Ethernet connection.
 
 A project of Ingenium (Wheaton College, IL).
@@ -23,6 +23,7 @@ import urllib2
 import json
 import time
 import os
+import function_lidarOperation as f
 
 #######################################################################
 
@@ -43,10 +44,7 @@ def sensor_do(s,url,pf,buf):
 Base_URL ='http://192.168.1.201/cgi/'
 
 # set ethernet IP address to anything but sensor's IP address
-ethernetIP = '192.168.1.222'
-command = 'sudo ifconfig eth0 ' + ethernetIP + ' netmask 255.255.255.0'
-os.system(command)
-print('\nEthernet IP set to ' + ethernetIP)
+ethernetIP = f.setEthernet()
 
 # initiate pycurl website connection
 sensor = pycurl.Curl()
