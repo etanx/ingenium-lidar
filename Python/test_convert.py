@@ -1,0 +1,3 @@
+import bag
+print("test")
+
