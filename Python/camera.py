@@ -6,8 +6,6 @@
 
 
 from picamera import PiCamera
-from i2c import AtlasI2C
-import csv
 import datetime
 import os
 import time
@@ -117,14 +115,14 @@ camera.start_preview()
 camera.exposure_mode = exposure
 camera.awb_mode = whitebalance
 settings = 'Exp:' + exposure + ' WB:' + whitebalance # for image annotation
+date = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 
-if vid =+ 1:  
-	# capture video
-	date = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+if vid == 1:  
+    # capture video
     camera.start_recording( filepath + '/vid_' + date[2:17] + '.h264')
     print("Started recording video...")
 
-	# this loop is just to write datetime on every other video frame 
+    # this loop is just to write datetime on every other video frame 
     while (datetime.datetime.now() - start).seconds < vidlength:
     	camera.annotate_text = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         camera.wait_recording(0.2)
@@ -133,10 +131,10 @@ if vid =+ 1:
     print('Saved vid' + date[2:17] + '.h264')
 
 if pic ==1:
-	# capture image
+    # capture image
     #camera.annotate_text = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S ")
     camera.capture( filepath + '/img' + date[2:17] + '.jpeg')
-	print('Saved img' + date[2:17] + '.jpeg')
+    print('Saved img' + date[2:17] + '.jpeg')
 
 
 # deactivate sensor and close camera

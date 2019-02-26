@@ -14,7 +14,7 @@ import os
 import time
 import subprocess
 import datetime
-import function_lidarOperation as f
+import func_ops as f
 
 # convert command line inputs to variables
 print('Command format: python {} <CaptureDuration(seconds)>'.format(sys.argv[0]))
@@ -62,7 +62,14 @@ except:
     print('Error occured: Please check code and connections.')
 
 
-print('Capture complete..')
+print('Capture complete..Sending to connected drive')
+
+# send data
+# try wifi
+
+
+# try bluetooth
+# try connected device
 
 # remember to submit your code changes by typing these commands:
 # git add [filename(s) here or use '.' for everything]
