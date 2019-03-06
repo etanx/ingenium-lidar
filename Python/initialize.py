@@ -44,7 +44,7 @@ def sensor_do(s,url,pf,buf):
 Base_URL ='http://192.168.1.201/cgi/'
 
 # set ethernet IP address to anything but sensor's IP address
-ethernetIP = f.setEthernet()
+ethernetIP = '192.168.1.1222' #f.setEthernet()
 
 # initiate pycurl website connection
 sensor = pycurl.Curl()
