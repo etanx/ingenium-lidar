@@ -19,7 +19,7 @@ import func_ops as f
 # convert command line inputs to variables
 print('Command format: python {} <CaptureDuration(seconds)>'.format(sys.argv[0]))
 if len(sys.argv) < 2:
-    duration = 60 # default capture time for testing
+    duration = 1000 # default capture time for testing
     print('No duration specified, switching to default '+ str(duration)+ ' seconds.')
 
 else:
@@ -33,7 +33,9 @@ filepath = '/home/pi/' + timestamp + 'test.pcap'
 
 # set Pi's ethernet IP address to anything but sensor's IP address
 # see Velodyne manual for more information about this
-ethernetIP = '192.168.1.1222'
+ethernetIP = '192.168.1.123' # range 0-254
+command = 'sudo ifconfig eth0 ' + ethernetIP + ' netmask 255.255.0.0'
+os.system(command)
 
 # begin data capture
 print('Initiating tcpdump capture to ' + filepath)
