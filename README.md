@@ -19,3 +19,5 @@ See folder 'Python' for simple data capture.
 
 ## Mapping and Visualization
 Work in progress.
+
+Project Log for Team Members (https://goo.gl/cQuSM1)
