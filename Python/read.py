@@ -19,7 +19,7 @@ import func_ops as f
 # convert command line inputs to variables
 print('Command format: python {} <CaptureDuration(seconds)>'.format(sys.argv[0]))
 if len(sys.argv) < 2:
-    duration = 1000 # default capture time for testing
+    duration = 30 # default capture time for testing
     print('No duration specified, switching to default '+ str(duration)+ ' seconds.')
 
 else:
