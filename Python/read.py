@@ -27,7 +27,7 @@ else:
 
 # settings for recording data
 buffersize = '524288' # not used for now
-filesize = '100' # MB, max size 2048?
+filesize = '1000' # MB, max size 2048?
 timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")
 filepath = '/home/pi/' + timestamp + 'test.pcap'
 
