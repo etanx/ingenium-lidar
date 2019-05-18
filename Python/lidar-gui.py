@@ -22,18 +22,18 @@ global wifi_ip
 
 # Create window of app
 window = Tk()
-window.title("LIDAR Runner")
+window.title("Ingenium LIDAR Controls")
 window.geometry('720x480')
 
 # add button status labels
-lbl = Label(window, text=wifi_ip,font=("Arial Bold",14))
-lbl.grid(column=0, row=0)
+ip = Label(window, text=wifi_ip,font=("Arial Bold",16))
+ip.grid(column=0, row=0)
 
 lbl = Label(window, text="Please click a button",font=("Arial Bold",16))
 lbl.grid(column=1, row=1)
 
 stat = Label(window, text="Status",font=("Arial Bold",16))
-stat.grid(column=0, row=3)
+stat.grid(column=0, row=4)
 
 # not sure how to get timer to work properly
 #timer = Label(window,text="00:00",font=("Arial Bold",40))
@@ -67,15 +67,16 @@ def go_clicked():
      os.system(command)
 
      # begin data capture
-     capturetxt = "Initiating tcpdump capture to " + filepath
-     stat.configure(text=capturetxt,font=("Arial Bold",14))
+     capturetxt = "Capture to " + filepath
+     stat.configure(text=filepath,font=("Arial Bold",14))
      print(capturetxt)
      print('Target filesize ' + filesize + ' MB')
      
      try:
          # start subprocess to run tcpdump
          process = subprocess.Popen(['tcpdump','-i','eth0','-C',filesize,'-w',filepath], stdout=subprocess.PIPE)
-         global process.pid # make global variable
+         tcpdump_id = process.pid
+         global tcpdump_id # make global variable
          print('Running process ' + str(process.pid) +' to capture data...')
      except:
          stat.configure(text="Failed to initiate tcpdump.",font=("Arial Bold",16))
@@ -89,7 +90,7 @@ def stop_clicked():
          # terminate tcpdump process in background 
          
          print('Ending tcpdump process, please type ps -A to double check.')
-         closecommand = 'sudo kill ' + str(process.pid)
+         closecommand = 'sudo kill ' + str(tcpdump_id)
          try:
             os.system(closecommand)
             stat.configure(text="Tcpdump capture ended.",font=("Arial Bold",16))

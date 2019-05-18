@@ -1,0 +1,11 @@
+python: can't open file '/home/pi/ingenium-lidar/lidar-gui.py': [Errno 2] No such file or directory
+/home/pi/ingenium-lidar/Python/lidar-gui.py:21: SyntaxWarning: name 'wifi_ip' is assigned to before global declaration
+  global wifi_ip
+/home/pi/ingenium-lidar/Python/lidar-gui.py:79: SyntaxWarning: name 'tcpdump_id' is assigned to before global declaration
+  global tcpdump_id # make global variable
+Traceback (most recent call last):
+  File "/home/pi/ingenium-lidar/Python/lidar-gui.py", line 24, in <module>
+    window = Tk()
+  File "/usr/lib/python2.7/lib-tk/Tkinter.py", line 1823, in __init__
+    self.tk = _tkinter.create(screenName, baseName, className, interactive, wantobjects, useTk, sync, use)
+_tkinter.TclError: no display name and no $DISPLAY environment variable
