@@ -23,11 +23,14 @@ _initialize.py_: This script resets the sensor and defines motor and laser setti
 
 _read.py_: This initiates tcpdump to capture data packets coming in fromt the eth0 (ethernet) port. Stopping the Python script does tnot stop the tcpdump process, so the script uses a method to specifically kill the tcpdump process.
 
-## (Geo)Mapping and SLAM
-Work in progress.
+_lidar-gui.py_: A GUI script to run the LiDAR Sensor based on initialize.py and read.py. Display screen needed.
 
+## Data Analysis (Geo)Mapping and SLAM
+We are looking into using Veloview and ROS for SLAM and georeferencing. 
+Please see [Veloview's Documentation](https://github.com/etanx/VeloView/tree/master/Documentation) on how to install software and SLAM laser data.
 
-Project Log for Team Members (https://goo.gl/cQuSM1)
+_geo_funcs.py_: takes a .las file and uses the transformation matrix to map all incoming points to their transformed points
+
 
 
 
