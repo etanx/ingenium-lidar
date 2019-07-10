@@ -1,3 +1,0 @@
-import bag
-print("test")
-
