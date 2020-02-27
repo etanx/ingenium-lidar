@@ -1,6 +1,8 @@
 # a GUI script to run the LiDAR Sensor
 # Ellie Tan, May 2019.
 
+# NOTE: This script is set to run once system boots.
+
 # import packages for GUI
 from Tkinter import *
 import tkMessageBox as msgbox
